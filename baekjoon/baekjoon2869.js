@@ -18,12 +18,7 @@ rl.on("line", line => {
   const B = parseInt(input[1]);
   const V = parseInt(input[2]);
 
-  const X = Math.floor(V/(A-B))
-  const Y = A - B;
-
-  days = ((X - 1) * Y) + A >= V ? X-1 : X+1
-  console.log(X);
-  console.log(V);
+  const days = Math.ceil((V-A)/(A-B)) + 1
 
 
   console.log(days);
