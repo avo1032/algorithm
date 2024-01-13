@@ -18,20 +18,47 @@
  * 1 ≤ goal[i]의 길이 ≤ 10
  * goal의 원소는 cards1과 cards2의 원소들로만 이루어져 있습니다.
  * cards1, cards2, goal의 문자열들은 모두 알파벳 소문자로만 이루어져 있습니다.
+ * 
+ * 제한사항
+1 ≤ keymap의 길이 ≤ 100
+1 ≤ keymap의 원소의 길이 ≤ 100
+keymap[i]는 i + 1번 키를 눌렀을 때 순서대로 바뀌는 문자를 의미합니다.
+예를 들어 keymap[0] = "ABACD" 인 경우 1번 키를 한 번 누르면 A, 두 번 누르면 B, 세 번 누르면 A 가 됩니다.
+keymap의 원소의 길이는 서로 다를 수 있습니다.
+keymap의 원소는 알파벳 대문자로만 이루어져 있습니다.
+1 ≤ targets의 길이 ≤ 100
+1 ≤ targets의 원소의 길이 ≤ 100
+targets의 원소는 알파벳 대문자로만 이루어져 있습니다.
+ * 
  */
 
-function solution(cards1, cards2, goal) {
-  var answer = "Yes";
-  for (let i = 0; i < goal.length; i++) {
-    const currentWord = goal[i];
-    if (goal[i] === cards1[0]) {
-      cards1.shift();
-    } else if (goal[i] === cards2[0]) {
-      cards2.shift();
-    } else {
-      answer = "No";
-      break;
+function solution(keymap, targets) {
+  const answer = [];
+  const keymapJson = {};
+  for (let key of keymap) {
+    const keyArr = key.split("");
+    addKeymap(keymapJson, keyArr);
+  }
+  for (let target of targets) {
+    const targetArr = target.split("");
+    let result = 0;
+    for (let i = 0; i < targetArr.length; i++) {
+      if (!keymapJson[targetArr[i]]) {
+        answer.push(-1);
+        break;
+      }
+      result += keymapJson[targetArr[i]];
+      if (i === targetArr.length - 1) {
+        answer.push(result);
+      }
     }
   }
   return answer;
+}
+
+function addKeymap(keymapJson, keymap) {
+  for (let i = 0; i < keymap.length; i++) {
+    if (!!keymapJson[keymap[i]] && keymapJson[keymap[i]] <= i + 1) continue;
+    keymapJson[`${keymap[i]}`] = i + 1;
+  }
 }
