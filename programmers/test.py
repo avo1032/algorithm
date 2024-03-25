@@ -10,3 +10,13 @@ def solution(N, K):
     return queue[0]
 
 print(solution(5, 2))
+
+
+dic = { }
+participant = ["leo", "kiki", "eden"]
+
+dic["leo"] = 1
+dic["kiki"] = 1
+print(dic)
+dic["leo"] = 1
+print(dic.get("af"))
