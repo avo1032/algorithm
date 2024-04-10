@@ -8,4 +8,4 @@ for i in words:
     answer += addNum
     num += 1
 
-print(answer)
+print(answer % 1234567891)
